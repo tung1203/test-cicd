@@ -1,6 +1,7 @@
-FROM node:15.12.0-alpine3.10 as build
+FROM node:14.8.0-alpine as build
 WORKDIR /app
-COPY . .
-RUN yarn install && yarn build
+COPY . /app
+RUN npm install && npm run build
+
 FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
